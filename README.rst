@@ -1,7 +1,7 @@
 anbn-kiOS
 ==========
 
-.. image:: https://github.com/Maruff/anbn-kiOS/media/anbn-kiOS.png?raw=true
+.. image:: https://github.com/Maruff/anbn-kiOS/blob/devel/media/anbn-kiOS.png?raw=true
 .. :scale: 50 %
 .. :alt: anbn-kiOS logo
 
