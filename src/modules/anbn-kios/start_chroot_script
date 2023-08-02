@@ -16,7 +16,7 @@ unpack /filesystem/root_init /
 apt-get update
 
 # Display a custom Splashscreen when booting the Rpi
-if [ "$ANBN-KIOS_CUSTOM_SPLASHSCREEN" == "yes" ]
+if [ "$ANBN_KIOS_CUSTOM_SPLASHSCREEN" == "yes" ]
 then
     apt-get install -y fbi
     sed -i 's/$/ logo.nologo consoleblank=0 loglevel=0 quiet/' /boot/cmdline.txt
@@ -34,14 +34,14 @@ apt-get autoremove -y
 #apt-get tools
 apt-get -y --force-yes install python2.7 git screen checkinstall avahi-daemon libavahi-compat-libdnssd1 xterm xdotool vim expect
 
-if [ "$ANBN-KIOS_INCLUDE_CHROMIUM" == "yes" ]
+if [ "$ANBN_KIOS_INCLUDE_CHROMIUM" == "yes" ]
 then
     apt-get install -y --force-yes chromium-browser
     sudo -u anbn sed -i 's@%BROWSER_START_SCRIPT%@/home/anbn/scripts/start_chromium_browser@g' /home/anbn/scripts/run_onepageos
 fi
 
 #Install web stack
-if [ "$ANBN-KIOS_INCLUDE_LIGHTTPD" == "yes" ]
+if [ "$ANBN_KIOS_INCLUDE_LIGHTTPD" == "yes" ]
 then
     apt-get install -y lighttpd php-common php-cgi php
     lighty-enable-mod fastcgi-php
@@ -52,9 +52,9 @@ then
     systemctl enable clear_lighttpd_cache.service
     pushd /var/www/html
         #Put git clones in place
-        if [ "$ANBN-KIOS_INCLUDE_DASHBOARD" == "yes" ]
+        if [ "$ANBN_KIOS_INCLUDE_DASHBOARD" == "yes" ]
         then
-        gitclone ANBN-KIOS_DASHBOARD_REPO FullPageDashboard
+        gitclone ANBN_KIOS_DASHBOARD_REPO FullPageDashboard
             chown -R anbn:anbn FullPageDashboard
             chown -R www-data:www-data FullPageDashboard
             chmod 775 FullPageDashboard
@@ -63,9 +63,9 @@ then
             popd
         fi
         #Set Welcome screen
-        if [ "$ANBN-KIOS_INCLUDE_WELCOME" == "yes" ]
+        if [ "$ANBN_KIOS_INCLUDE_WELCOME" == "yes" ]
         then        
-            gitclone ANBN-KIOS_WELCOME_REPO welcome
+            gitclone ANBN_KIOS_WELCOME_REPO welcome
             chown -R www-data:www-data welcome
         fi
     popd
@@ -77,30 +77,30 @@ fi
 
 
 #override timezone
-if [ "$ANBN-KIOS_OVERRIDE_TIMEZONE" != "default" ]
+if [ "$ANBN_KIOS_OVERRIDE_TIMEZONE" != "default" ]
 then
-    ln -fs /usr/share/zoneinfo/"$ANBN-KIOS_OVERRIDE_TIMEZONE" /etc/localtime
+    ln -fs /usr/share/zoneinfo/"$ANBN_KIOS_OVERRIDE_TIMEZONE" /etc/localtime
     dpkg-reconfigure -f noninteractive tzdata
 fi
 
 #override locale
-if [ "$ANBN-KIOS_OVERRIDE_LOCALE" != "default" ]
+if [ "$ANBN_KIOS_OVERRIDE_LOCALE" != "default" ]
 then
-    sed -i '/^#.* '"$ANBN-KIOS_OVERRIDE_LOCALE"' /s/^# //' /etc/locale.gen
+    sed -i '/^#.* '"$ANBN_KIOS_OVERRIDE_LOCALE"' /s/^# //' /etc/locale.gen
     locale-gen
-    update-locale LANG="$ANBN-KIOS_OVERRIDE_LOCALE"
+    update-locale LANG="$ANBN_KIOS_OVERRIDE_LOCALE"
 fi
 
 #override keyboard model and layout
-if [ "$ANBN-KIOS_OVERRIDE_KBD_MODEL" != "default" ]
+if [ "$ANBN_KIOS_OVERRIDE_KBD_MODEL" != "default" ]
 then
-    sed -i 's/^XKBMODEL=.*/XKBMODEL="'$ANBN-KIOS_OVERRIDE_KBD_MODEL'"/' /etc/default/keyboard
+    sed -i 's/^XKBMODEL=.*/XKBMODEL="'$ANBN_KIOS_OVERRIDE_KBD_MODEL'"/' /etc/default/keyboard
 fi
-if [ "$ANBN-KIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
+if [ "$ANBN_KIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
 then
-    sed -i 's/^XKBLAYOUT=.*/XKBLAYOUT="'$ANBN-KIOS_OVERRIDE_KBD_LAYOUT'"/' /etc/default/keyboard
+    sed -i 's/^XKBLAYOUT=.*/XKBLAYOUT="'$ANBN_KIOS_OVERRIDE_KBD_LAYOUT'"/' /etc/default/keyboard
 fi
-if [ "$ANBN-KIOS_OVERRIDE_KBD_MODEL" != "default" ] || [ "$ANBN-KIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
+if [ "$ANBN_KIOS_OVERRIDE_KBD_MODEL" != "default" ] || [ "$ANBN_KIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
 then
     setupcon -k --save-only
 fi
@@ -110,24 +110,24 @@ sudo -u anbn mkdir -p /home/anbn/.fonts
 sudo -u anbn wget --directory-prefix /home/anbn/.fonts https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
 
 #override password
-if [ "$ANBN-KIOS_OVERRIDE_PASSWORD" != "default" ]
+if [ "$ANBN_KIOS_OVERRIDE_PASSWORD" != "default" ]
 then
     #root password
-    echo "anbn:$ANBN-KIOS_OVERRIDE_PASSWORD" | chpasswd
+    echo "anbn:$ANBN_KIOS_OVERRIDE_PASSWORD" | chpasswd
 fi
 
 #Setup x11vnc
-if [ "$ANBN-KIOS_INCLUDE_X11VNC"  == "yes" ]
+if [ "$ANBN_KIOS_INCLUDE_X11VNC"  == "yes" ]
 then
     apt-get install -y --force-yes x11vnc
 
     # Set x11vnc password
-    if [ "$ANBN-KIOS_OVERRIDE_PASSWORD" != "default" ]
+    if [ "$ANBN_KIOS_OVERRIDE_PASSWORD" != "default" ]
     then
-        sudo -u anbn /home/anbn/scripts/setX11vncPass "$ANBN-KIOS_OVERRIDE_PASSWORD"
+        sudo -u anbn /home/anbn/scripts/setX11vncPass "$ANBN_KIOS_OVERRIDE_PASSWORD"
         if [ ! -f /home/anbn/.vnc/passwd ] || [ ! -s /home/anbn/.vnc/passwd ]; then
           echo "/home/anbn/.vnc/passwd was not created. Trying again."
-          sudo -u anbn /home/anbn/scripts/setX11vncPass "$ANBN-KIOS_OVERRIDE_PASSWORD"
+          sudo -u anbn /home/anbn/scripts/setX11vncPass "$ANBN_KIOS_OVERRIDE_PASSWORD"
           if [ ! -f /home/anbn/.vnc/passwd ] || [ ! -s /home/anbn/.vnc/passwd ]; then
             echo "/home/anbn/.vnc/passwd was not created again. Giving up."
             echo "Failed to set a VNC password. Aborting build."
