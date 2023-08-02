@@ -9,7 +9,7 @@ set -e
 
 source /common.sh
 
-unpack /filesystem/home/pi /home/pi pi
+unpack /filesystem/home/anbn /home/anbn anbn
 unpack /filesystem/boot /boot
 unpack /filesystem/root_init /
 
@@ -37,7 +37,7 @@ apt-get -y --force-yes install python2.7 git screen checkinstall avahi-daemon li
 if [ "$ANBN-KIOS_INCLUDE_CHROMIUM" == "yes" ]
 then
     apt-get install -y --force-yes chromium-browser
-    sudo -u pi sed -i 's@%BROWSER_START_SCRIPT%@/home/pi/scripts/start_chromium_browser@g' /home/pi/scripts/run_onepageos
+    sudo -u anbn sed -i 's@%BROWSER_START_SCRIPT%@/home/anbn/scripts/start_chromium_browser@g' /home/anbn/scripts/run_onepageos
 fi
 
 #Install web stack
@@ -48,14 +48,14 @@ then
     #service lighttpd force-reload
     chown -R www-data:www-data /var/www/html
     chmod 775 /var/www/html
-    usermod -a -G www-data pi
+    usermod -a -G www-data anbn
     systemctl enable clear_lighttpd_cache.service
     pushd /var/www/html
         #Put git clones in place
         if [ "$ANBN-KIOS_INCLUDE_DASHBOARD" == "yes" ]
         then
         gitclone ANBN-KIOS_DASHBOARD_REPO FullPageDashboard
-            chown -R pi:pi FullPageDashboard
+            chown -R anbn:anbn FullPageDashboard
             chown -R www-data:www-data FullPageDashboard
             chmod 775 FullPageDashboard
             pushd FullPageDashboard
@@ -106,14 +106,14 @@ then
 fi
 
 # Add emoji support
-sudo -u pi mkdir -p /home/pi/.fonts
-sudo -u pi wget --directory-prefix /home/pi/.fonts https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
+sudo -u anbn mkdir -p /home/anbn/.fonts
+sudo -u anbn wget --directory-prefix /home/anbn/.fonts https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
 
 #override password
 if [ "$ANBN-KIOS_OVERRIDE_PASSWORD" != "default" ]
 then
     #root password
-    echo "pi:$ANBN-KIOS_OVERRIDE_PASSWORD" | chpasswd
+    echo "anbn:$ANBN-KIOS_OVERRIDE_PASSWORD" | chpasswd
 fi
 
 #Setup x11vnc
@@ -124,36 +124,36 @@ then
     # Set x11vnc password
     if [ "$ANBN-KIOS_OVERRIDE_PASSWORD" != "default" ]
     then
-        sudo -u pi /home/pi/scripts/setX11vncPass "$ANBN-KIOS_OVERRIDE_PASSWORD"
-        if [ ! -f /home/pi/.vnc/passwd ] || [ ! -s /home/pi/.vnc/passwd ]; then
-          echo "/home/pi/.vnc/passwd was not created. Trying again."
-          sudo -u pi /home/pi/scripts/setX11vncPass "$ANBN-KIOS_OVERRIDE_PASSWORD"
-          if [ ! -f /home/pi/.vnc/passwd ] || [ ! -s /home/pi/.vnc/passwd ]; then
-            echo "/home/pi/.vnc/passwd was not created again. Giving up."
+        sudo -u anbn /home/anbn/scripts/setX11vncPass "$ANBN-KIOS_OVERRIDE_PASSWORD"
+        if [ ! -f /home/anbn/.vnc/passwd ] || [ ! -s /home/anbn/.vnc/passwd ]; then
+          echo "/home/anbn/.vnc/passwd was not created. Trying again."
+          sudo -u anbn /home/anbn/scripts/setX11vncPass "$ANBN-KIOS_OVERRIDE_PASSWORD"
+          if [ ! -f /home/anbn/.vnc/passwd ] || [ ! -s /home/anbn/.vnc/passwd ]; then
+            echo "/home/anbn/.vnc/passwd was not created again. Giving up."
             echo "Failed to set a VNC password. Aborting build."
             exit 1
            fi
         fi
     else
-        sudo -u pi /home/pi/scripts/setX11vncPass raspberry
-        if [ ! -f /home/pi/.vnc/passwd ] || [ ! -s /home/pi/.vnc/passwd ]; then
-          echo "/home/pi/.vnc/passwd was not created. Trying again."
-          sudo -u pi /home/pi/scripts/setX11vncPass raspberry
-          if [ ! -f /home/pi/.vnc/passwd ] || [ ! -s /home/pi/.vnc/passwd ]; then
-            echo "/home/pi/.vnc/passwd was not created again. Giving up."
+        sudo -u anbn /home/anbn/scripts/setX11vncPass raspberry
+        if [ ! -f /home/anbn/.vnc/passwd ] || [ ! -s /home/anbn/.vnc/passwd ]; then
+          echo "/home/anbn/.vnc/passwd was not created. Trying again."
+          sudo -u anbn /home/anbn/scripts/setX11vncPass raspberry
+          if [ ! -f /home/anbn/.vnc/passwd ] || [ ! -s /home/anbn/.vnc/passwd ]; then
+            echo "/home/anbn/.vnc/passwd was not created again. Giving up."
             echo "Failed to set a VNC password. Aborting build."
             exit 1
           fi
         fi
     fi
-    ls -l /home/pi/.vnc/passwd
+    ls -l /home/anbn/.vnc/passwd
 
     #Enable x11vnc service
     systemctl enable x11vnc.service
 fi
 
-#echo "sudo -u pi startx /home/pi/scripts/run_onepageos &" >> /etc/rc.local
-#echo "(sleep 15 ; sudo -u pi /home/pi/scripts/fullscreen) &" >> /etc/rc.local
+#echo "sudo -u anbn startx /home/anbn/scripts/run_onepageos &" >> /etc/rc.local
+#echo "(sleep 15 ; sudo -u anbn /home/anbn/scripts/fullscreen) &" >> /etc/rc.local
 
 #####################################################################
 ### setup services
