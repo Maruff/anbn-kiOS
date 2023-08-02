@@ -8,11 +8,11 @@ anbn-kiOS
 A `Raspberry Pi <http://www.raspberrypi.org/>`_ distribution to display one webpage in full screen. It includes `Chromium <https://www.chromium.org/>`_ out of the box and the scripts necessary to load it at boot.
 This repository contains the source script to generate the distribution out of an existing `Raspbian <http://www.raspbian.org/>`_ distro image.
 
-anbn-kiOS started as a fork from `OctoPi <https://github.com/guysoft/OctoPi>`_, but then joined the distros that use `CustomPiOS <https://github.com/guysoft/CustomPiOS>`_.
+anbn-kiOS started as a fork from `FullPageOS <https://github.com/guysoft/FullPageOS>`_, but then joined the distros that use `CustomPiOS <https://github.com/guysoft/CustomPiOS>`_.
 
 Donate
 ------
-anbn-kiOS is 100% free and open source and maintained by Guy Sheffer. If its helping your life, your organisation or makes you happy, please consider making a donation. It means I can code more and worry less about my balance. Any amount counts.
+anbn-kiOS is 100% free and open source and maintained by Esan Maruff. If its helping your life, your organisation or makes you happy, please consider making a donation. It means I can code more and worry less about my balance. Any amount counts.
 
 |paypal|
 
