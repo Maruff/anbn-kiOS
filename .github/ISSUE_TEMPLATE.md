@@ -8,12 +8,12 @@
 
 #### Was there an error message displayed? What did it say?
 
-#### Version of FullPageOS?
+#### Version of anbn-kiOS?
 
-[Can be found in /etc/fullpageos_version ALWAYS INCLUDE.]
+[Can be found in /etc/anbn-kiOS_version ALWAYS INCLUDE.]
 
 #### Screenshot(s) showing the problem:
 
 [If applicable. Always include if unsure or reporting UI issues.]
 
-#### If you are building FullPageOS - provide a build.log that is created for the build
+#### If you are building anbn-kiOS - provide a build.log that is created for the build
