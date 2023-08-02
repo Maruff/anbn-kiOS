@@ -22,9 +22,9 @@ anbn-kiOS is 100% free and open source and maintained by Esan Maruff. If its hel
 Where to get it?
 ----------------
 
-Official mirror is `here <http://unofficialpi.org/Distros/anbn-kiOS/>`_
+Official mirror is `here <http://igenss.qa/anbn/>`_
 
-Nightly builds are available `here <http://unofficialpi.org/Distros/anbn-kiOS/nightly/>`_ (currently built on demand)
+Nightly builds are available `here <http://igenss.qa/anbn/anbn-kiOS/nightly/>`_ (currently built on demand)
 
 How to use it?
 --------------
@@ -76,7 +76,7 @@ You can build it by issuing the following commands::
     sudo apt install coreutils p7zip-full qemu-user-static
     
     git clone https://github.com/guysoft/CustomPiOS.git
-    git clone https://github.com/guysoft/anbn-kiOS.git
+    git clone https://github.com/Maruff/anbn-kiOS.git
     cd anbn-kiOS/src/image
     wget -c --trust-server-names 'https://downloads.raspberrypi.org/raspios_lite_armhf_latest'
     cd ..
