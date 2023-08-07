@@ -144,7 +144,7 @@ The password is ``raspberry`` and is independent of password you have set for yo
 Install Chrome Extensions
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Press ``ctrl`` + ``t``, it will open an new tab. 
+Press ``ctrl`` + ``t``, it will open a new tab. 
 
 You can either install extensions frome `Chrome Web Store <https://chrome.google.com/webstore/category/extensions>`_ or `install your own extension  <https://support.google.com/chrome_webstore/answer/2664769?hl=en>`_. 
 
