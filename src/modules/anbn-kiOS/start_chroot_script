@@ -55,7 +55,7 @@ then
         if [ "$ANBN_KIOS_INCLUDE_DASHBOARD" == "yes" ]
         then
         gitclone ANBN_KIOS_DASHBOARD_REPO anbn-kiOSDashboard
-            chown -R anbn:anbn anbn-kiOSDashboard
+            chown -R anbn:pi anbn-kiOSDashboard
             chown -R www-data:www-data anbn-kiOSDashboard
             chmod 775 anbn-kiOSDashboard
             pushd anbn-kiOSDashboard
