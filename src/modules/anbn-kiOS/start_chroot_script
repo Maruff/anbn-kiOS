@@ -54,12 +54,12 @@ then
         #Put git clones in place
         if [ "$ANBN_KIOS_INCLUDE_DASHBOARD" == "yes" ]
         then
-        gitclone ANBN_KIOS_DASHBOARD_REPO anbn-kiOSDashboard
-            chown -R anbn:pi anbn-kiOSDashboard
-            chown -R www-data:www-data anbn-kiOSDashboard
-            chmod 775 anbn-kiOSDashboard
-            pushd anbn-kiOSDashboard
-                sed -i "s@'INIT_URL_PATH', __DIR__ . '/init.txt'@'INIT_URL_PATH', '/boot/anbn-kiOSdashboard.txt'@g" config.php
+        gitclone ANBN_KIOS_DASHBOARD_REPO FullPageDashboard
+            chown -R anbn:pi FullPageDashboard
+            chown -R www-data:www-data FullPageDashboard
+            chmod 775 FullPageDashboard
+            pushd FullPageDashboard
+                sed -i "s@'INIT_URL_PATH', __DIR__ . '/init.txt'@'INIT_URL_PATH', '/boot/FullPageDashboard.txt'@g" config.php
             popd
         fi
         #Set Welcome screen
