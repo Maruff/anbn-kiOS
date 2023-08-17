@@ -63,9 +63,9 @@ then
             popd
         fi
         #Set Welcome screen
-        if [ "$ANBN_KIOS_INCLUDE_WELCOME" == "yes" ]
+        if [ "$FULLPAGE_INCLUDE_WELCOME" == "yes" ]
         then        
-            gitclone ANBN_KIOS_WELCOME_REPO welcome
+            gitclone FULLPAGE_WELCOME_REPO welcome
             chown -R www-data:www-data welcome
         fi
     popd
