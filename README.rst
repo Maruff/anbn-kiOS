@@ -31,8 +31,8 @@ How to use it?
 
 #. Unzip the image and install it to an SD card `like any other Raspberry Pi image <https://www.raspberrypi.org/documentation/installation/installing-images/README.md>`_
 #. Configure your WiFi by editing ``anbn-kiOS-wpa-supplicant.txt`` on the first partition of the flashed card when using it like a flash drive
-#. Boot the anbn from the SD card
-#. Log into your anbn via SSH (it is located at ``anbn-kiOS.local`` `if your computer supports bonjour <https://learn.adafruit.com/bonjour-zeroconf-networking-for-windows-and-linux/overview>`_ or the IP address assigned by your router), default username is "anbn", default password is "raspberry" and change the password using the ``passwd`` command. Consider also changing the vnc password as well by `x11vnc -storepasswd`.
+#. Boot the pi from the SD card
+#. Log into your pi via SSH (it is located at ``anbn-kiOS.local`` `if your computer supports bonjour <https://learn.adafruit.com/bonjour-zeroconf-networking-for-windows-and-linux/overview>`_ or the IP address assigned by your router), default username is "pi", default password is "raspberry" and change the password using the ``passwd`` command. Consider also changing the vnc password as well by `x11vnc -storepasswd`.
 
 Requirements
 ------------
@@ -152,7 +152,7 @@ If you which to install your own extension then you can transfer the build files
 
 Example::
 
-    rsync -av <extension-build-folder>/ anbn@anbn-kiOS.local:extensions/<extension-name>/
+    rsync -av <extension-build-folder>/ pi@anbn-kiOS.local:extensions/<extension-name>/
 
 
 Code contribution would be appreciated!
