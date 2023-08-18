@@ -77,7 +77,7 @@
 # Add GPU acceleration
 [ -n "$ANBN_KIOS_INCLUDE_ACCELERATION" ] || ANBN_KIOS_INCLUDE_ACCELERATION=yes
 
-# Enable custom Splashscreen. Put your picture into anbn-kiOS/modules/anbn-kiOS/filesystem/home/pi/media/splash.png
+# Enable custom Splashscreen. Put your picture into anbn_kiOS/modules/anbn_kiOS/filesystem/home/pi/media/splash.png
 [ -n "$ANBN_KIOS_CUSTOM_SPLASHSCREEN" ] || ANBN_KIOS_CUSTOM_SPLASHSCREEN=yes
 
 # Install and enable x11vnc service

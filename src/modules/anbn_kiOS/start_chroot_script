@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# anbn-kiOS generation script
-# Helper script that runs in a Raspbian/others chroot to create the anbn-kiOS distro
+# anbn_kiOS generation script
+# Helper script that runs in a Raspbian/others chroot to create the anbn_kiOS distro
 # Written by Guy Sheffer <guysoft at gmail dot com>
 # GPL V3
 ########
