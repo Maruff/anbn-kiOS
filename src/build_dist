@@ -6,4 +6,3 @@ export PATH=$PATH:$CUSTOM_PI_OS_PATH
 echo ${CUSTOM_PI_OS_PATH}
 
 ${CUSTOM_PI_OS_PATH}/build_custom_os $@
-
