@@ -32,11 +32,11 @@ apt-get remove -y --purge  $remove_extra
 apt-get autoremove -y
 
 #apt-get tools
-apt-get -y --force-yes install python2.7 git screen checkinstall avahi-daemon libavahi-compat-libdnssd1 xterm xdotool vim expect
+apt-get -y --allow install python2.7 git screen checkinstall avahi-daemon libavahi-compat-libdnssd1 xterm xdotool vim expect
 
 if [ "$ANBN_KIOS_INCLUDE_CHROMIUM" == "yes" ]
 then
-    apt-get install -y --force-yes chromium-browser
+    apt-get install -y --allow chromium-browser
     sudo -u pi sed -i 's@%BROWSER_START_SCRIPT%@/home/pi/scripts/start_chromium_browser@g' /home/pi/scripts/run_onepageos
 fi
 
@@ -119,7 +119,7 @@ fi
 #Setup x11vnc
 if [ "$ANBN_KIOS_INCLUDE_X11VNC"  == "yes" ]
 then
-    apt-get install -y --force-yes x11vnc
+    apt-get install -y --allow x11vnc
 
     # Set x11vnc password
     if [ "$ANBN_KIOS_OVERRIDE_PASSWORD" != "default" ]
