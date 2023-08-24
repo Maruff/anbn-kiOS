@@ -1,6 +1,6 @@
-export DIST_NAME=anbn_kiOS
+export DIST_NAME=anbnkiOS
 export DIST_VERSION=0.13.0
-export MODULES="base(raspicam, network, disable-services(gui(anbn_kiOS), usage-statistics))"
+export MODULES="base(raspicam, network, disable-services(gui(anbnkiOS), usage-statistics))"
 
 # if set will enlarge root parition prior to build by provided size in MB
 export BASE_IMAGE_ENLARGEROOT=1000
@@ -12,6 +12,6 @@ export GUI_STARTUP_SCRIPT=/home/pi/scripts/run_onepageos
 
 export RPI_IMAGER_NAME="${DIST_NAME}"
 export RPI_IMAGER_DESCRIPTION="A raspberrypi distro to display a full page browser on boot"
-export RPI_IMAGER_ICON="https://raw.githubusercontent.com/Maruff/anbn_kiOS/stable/media/rpi-imager-anbn_kiOS.png"
+export RPI_IMAGER_ICON="https://raw.githubusercontent.com/Maruff/anbnkiOS/stable/media/rpi-imager-anbnkiOS.png"
 
 export USAGE_STATISTICS_URL=https://fullpageos-tracking.gnethomelinux.com
