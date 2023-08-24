@@ -8,12 +8,12 @@
 
 #### Was there an error message displayed? What did it say?
 
-#### Version of anbn_kiOS?
+#### Version of anbnPiOS?
 
-[Can be found in /etc/anbn_kiOS_version ALWAYS INCLUDE.]
+[Can be found in /etc/anbnPiOS_version ALWAYS INCLUDE.]
 
 #### Screenshot(s) showing the problem:
 
 [If applicable. Always include if unsure or reporting UI issues.]
 
-#### If you are building anbn_kiOS - provide a build.log that is created for the build
+#### If you are building anbnPiOS - provide a build.log that is created for the build
