@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# anbn_kiOS generation script
-# Helper script that runs in a Raspbian/others chroot to create the anbn_kiOS distro
+# anbnPiOS generation script
+# Helper script that runs in a Raspbian/others chroot to create the anbnPiOS distro
 # Written by Guy Sheffer <guysoft at gmail dot com>
 # GPL V3
 ########
@@ -16,7 +16,7 @@ unpack /filesystem/root_init /
 apt-get update
 
 # Display a custom Splashscreen when booting the Rpi
-if [ "$ANBN_KIOS_CUSTOM_SPLASHSCREEN" == "yes" ]
+if [ "$ANBNPIOS_CUSTOM_SPLASHSCREEN" == "yes" ]
 then
     apt-get install -y fbi
     sed -i 's/$/ logo.nologo consoleblank=0 loglevel=0 quiet/' /boot/cmdline.txt
@@ -32,16 +32,16 @@ apt-get remove -y --purge  $remove_extra
 apt-get autoremove -y
 
 #apt-get tools
-apt-get -y --allow install python2.7 git screen checkinstall avahi-daemon libavahi-compat-libdnssd1 xterm xdotool vim expect
+apt-get -y --force-yes install python2.7 git screen checkinstall avahi-daemon libavahi-compat-libdnssd1 xterm xdotool vim expect
 
-if [ "$ANBN_KIOS_INCLUDE_CHROMIUM" == "yes" ]
+if [ "$ANBNPIOS_INCLUDE_CHROMIUM" == "yes" ]
 then
-    apt-get install -y --allow chromium-browser
+    apt-get install -y --force-yes chromium-browser
     sudo -u pi sed -i 's@%BROWSER_START_SCRIPT%@/home/pi/scripts/start_chromium_browser@g' /home/pi/scripts/run_onepageos
 fi
 
 #Install web stack
-if [ "$ANBN_KIOS_INCLUDE_LIGHTTPD" == "yes" ]
+if [ "$ANBNPIOS_INCLUDE_LIGHTTPD" == "yes" ]
 then
     apt-get install -y lighttpd php-common php-cgi php
     lighty-enable-mod fastcgi-php
@@ -52,20 +52,20 @@ then
     systemctl enable clear_lighttpd_cache.service
     pushd /var/www/html
         #Put git clones in place
-        if [ "$ANBN_KIOS_INCLUDE_DASHBOARD" == "yes" ]
+        if [ "$ANBNPIOS_INCLUDE_DASHBOARD" == "yes" ]
         then
-        gitclone ANBN_KIOS_DASHBOARD_REPO FullPageDashboard
+        gitclone ANBNPIOS_DASHBOARD_REPO FullPageDashboard
             chown -R pi:pi FullPageDashboard
             chown -R www-data:www-data FullPageDashboard
             chmod 775 FullPageDashboard
             pushd FullPageDashboard
-                sed -i "s@'INIT_URL_PATH', __DIR__ . '/init.txt'@'INIT_URL_PATH', '/boot/FullPageDashboard.txt'@g" config.php
+                sed -i "s@'INIT_URL_PATH', __DIR__ . '/init.txt'@'INIT_URL_PATH', '/boot/fullpagedashboard.txt'@g" config.php
             popd
         fi
         #Set Welcome screen
-        if [ "$FULLPAGE_INCLUDE_WELCOME" == "yes" ]
+        if [ "$ANBNPIOS_INCLUDE_WELCOME" == "yes" ]
         then        
-            gitclone FULLPAGE_WELCOME_REPO welcome
+            gitclone ANBNPIOS_WELCOME_REPO welcome
             chown -R www-data:www-data welcome
         fi
     popd
@@ -77,30 +77,30 @@ fi
 
 
 #override timezone
-if [ "$ANBN_KIOS_OVERRIDE_TIMEZONE" != "default" ]
+if [ "$ANBNPIOS_OVERRIDE_TIMEZONE" != "default" ]
 then
-    ln -fs /usr/share/zoneinfo/"$ANBN_KIOS_OVERRIDE_TIMEZONE" /etc/localtime
+    ln -fs /usr/share/zoneinfo/"$ANBNPIOS_OVERRIDE_TIMEZONE" /etc/localtime
     dpkg-reconfigure -f noninteractive tzdata
 fi
 
 #override locale
-if [ "$ANBN_KIOS_OVERRIDE_LOCALE" != "default" ]
+if [ "$ANBNPIOS_OVERRIDE_LOCALE" != "default" ]
 then
-    sed -i '/^#.* '"$ANBN_KIOS_OVERRIDE_LOCALE"' /s/^# //' /etc/locale.gen
+    sed -i '/^#.* '"$ANBNPIOS_OVERRIDE_LOCALE"' /s/^# //' /etc/locale.gen
     locale-gen
-    update-locale LANG="$ANBN_KIOS_OVERRIDE_LOCALE"
+    update-locale LANG="$ANBNPIOS_OVERRIDE_LOCALE"
 fi
 
 #override keyboard model and layout
-if [ "$ANBN_KIOS_OVERRIDE_KBD_MODEL" != "default" ]
+if [ "$ANBNPIOS_OVERRIDE_KBD_MODEL" != "default" ]
 then
-    sed -i 's/^XKBMODEL=.*/XKBMODEL="'$ANBN_KIOS_OVERRIDE_KBD_MODEL'"/' /etc/default/keyboard
+    sed -i 's/^XKBMODEL=.*/XKBMODEL="'$ANBNPIOS_OVERRIDE_KBD_MODEL'"/' /etc/default/keyboard
 fi
-if [ "$ANBN_KIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
+if [ "$ANBNPIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
 then
-    sed -i 's/^XKBLAYOUT=.*/XKBLAYOUT="'$ANBN_KIOS_OVERRIDE_KBD_LAYOUT'"/' /etc/default/keyboard
+    sed -i 's/^XKBLAYOUT=.*/XKBLAYOUT="'$ANBNPIOS_OVERRIDE_KBD_LAYOUT'"/' /etc/default/keyboard
 fi
-if [ "$ANBN_KIOS_OVERRIDE_KBD_MODEL" != "default" ] || [ "$ANBN_KIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
+if [ "$ANBNPIOS_OVERRIDE_KBD_MODEL" != "default" ] || [ "$ANBNPIOS_OVERRIDE_KBD_LAYOUT" != "default" ]
 then
     setupcon -k --save-only
 fi
@@ -110,24 +110,24 @@ sudo -u pi mkdir -p /home/pi/.fonts
 sudo -u pi wget --directory-prefix /home/pi/.fonts https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
 
 #override password
-if [ "$ANBN_KIOS_OVERRIDE_PASSWORD" != "default" ]
+if [ "$ANBNPIOS_OVERRIDE_PASSWORD" != "default" ]
 then
     #root password
-    echo "pi:$ANBN_KIOS_OVERRIDE_PASSWORD" | chpasswd
+    echo "pi:$ANBNPIOS_OVERRIDE_PASSWORD" | chpasswd
 fi
 
 #Setup x11vnc
-if [ "$ANBN_KIOS_INCLUDE_X11VNC"  == "yes" ]
+if [ "$ANBNPIOS_INCLUDE_X11VNC"  == "yes" ]
 then
-    apt-get install -y x11vnc
+    apt-get install -y --force-yes x11vnc
 
     # Set x11vnc password
-    if [ "$ANBN_KIOS_OVERRIDE_PASSWORD" != "default" ]
+    if [ "$ANBNPIOS_OVERRIDE_PASSWORD" != "default" ]
     then
-        sudo -u pi /home/pi/scripts/setX11vncPass "$ANBN_KIOS_OVERRIDE_PASSWORD"
+        sudo -u pi /home/pi/scripts/setX11vncPass "$ANBNPIOS_OVERRIDE_PASSWORD"
         if [ ! -f /home/pi/.vnc/passwd ] || [ ! -s /home/pi/.vnc/passwd ]; then
           echo "/home/pi/.vnc/passwd was not created. Trying again."
-          sudo -u pi /home/pi/scripts/setX11vncPass "$ANBN_KIOS_OVERRIDE_PASSWORD"
+          sudo -u pi /home/pi/scripts/setX11vncPass "$ANBNPIOS_OVERRIDE_PASSWORD"
           if [ ! -f /home/pi/.vnc/passwd ] || [ ! -s /home/pi/.vnc/passwd ]; then
             echo "/home/pi/.vnc/passwd was not created again. Giving up."
             echo "Failed to set a VNC password. Aborting build."
