@@ -1,4 +1,4 @@
-export DIST_NAME=FullpageOS
+export DIST_NAME=anbnPiOS
 export DIST_VERSION=0.13.0
 export MODULES="base(raspicam, network, disable-services(gui(anbnpios), usage-statistics))"
 
@@ -14,4 +14,4 @@ export RPI_IMAGER_NAME="${DIST_NAME}"
 export RPI_IMAGER_DESCRIPTION="A raspberrypi distro to display a full page browser on boot"
 export RPI_IMAGER_ICON="https://raw.githubusercontent.com/Maruff/anbnPiOS/devel/media/rpi-imager-anbnPiOS.png"
 
-export USAGE_STATISTICS_URL=https://fullpageos-tracking.gnethomelinux.com
+# export USAGE_STATISTICS_URL=https://fullpageos-tracking.gnethomelinux.com
